@@ -103,7 +103,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return
      */
     @Override
-    public PageResult   pageQuary(EmployeePageQueryDTO employeePageQueryDTO) {
+    public PageResult pageQuary(EmployeePageQueryDTO employeePageQueryDTO) {
         // 使用分页插件
         PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
         Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
@@ -114,4 +114,24 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(total, result);
     }
 
+    /**
+     * 启用或禁用员工账号
+     * @param status
+     * @param id
+     */
+    @Override
+    public void startStop(Integer status, Long id) {
+        /*
+        Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .build();
+        */
+
+        Employee employee = new Employee();
+            employee.setStatus(status);
+        employee.setId(id);
+
+        employeeMapper.update(employee);
+    }
 }
