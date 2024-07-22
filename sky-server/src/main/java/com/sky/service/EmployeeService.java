@@ -27,7 +27,7 @@ public interface EmployeeService {
      * @param employeePageQueryDTO
      * @return
      */
-    PageResult pageQuary(EmployeePageQueryDTO employeePageQueryDTO);
+    PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
     /**
      * 启用或禁用员工账号

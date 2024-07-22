@@ -103,7 +103,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return
      */
     @Override
-    public PageResult pageQuary(EmployeePageQueryDTO employeePageQueryDTO) {
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
         // 使用分页插件
         PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
         Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
