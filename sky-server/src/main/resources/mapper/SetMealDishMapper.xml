@@ -17,7 +17,7 @@
     </delete>
 
     <select id="getSetMealDishIds" resultType="java.lang.Long" parameterType="java.util.List">
-        select setmeal_id from setmeal_dish where id in
+        select setmeal_id from setmeal_dish where dish_id in
         <foreach collection="ids" item="dishId" separator="," open="(" close=")">
             #{dishId}
         </foreach>

@@ -10,8 +10,8 @@ import com.sky.service.DishService;
 import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,6 +33,7 @@ public class DishController {
      */
     @PostMapping
     @ApiOperation("新增菜品")
+    @CacheEvict(cacheNames = "dish", key = "#dishDTO.categoryId")
     public Result save(@RequestBody DishDTO dishDTO) {
         log.info("新增菜品：{}", dishDTO);
         dishService.saveWithFlavor(dishDTO);
@@ -60,6 +61,7 @@ public class DishController {
      */
     @DeleteMapping
     @ApiOperation("菜品批量删除")
+    @CacheEvict(value = "dish", allEntries = true)
     public Result delete(@RequestParam List<Long> ids) {
         log.info("菜品批量删除：{}", ids);
         dishService.deleteBatch(ids);
@@ -86,6 +88,7 @@ public class DishController {
      */
     @PutMapping
     @ApiOperation("根据id更新菜品信息")
+    @CacheEvict(value = "dish", allEntries = true)
     public Result update(@RequestBody DishDTO dishDTO) {
         log.info("根据id更新菜品信息，参数为：{}", dishDTO);
         dishService.update(dishDTO);
@@ -100,6 +103,7 @@ public class DishController {
      */
     @PostMapping("/status/{status}")
     @ApiOperation("起售或者禁售菜品")
+    @CacheEvict(value = "dish", allEntries = true)
     public Result startOrStop(@PathVariable("status") Integer status, Long id) {
         log.info("设置菜品状态为：{}", status == 1 ? "起售" : "停售");
         dishService.startOrStop(status, id);
