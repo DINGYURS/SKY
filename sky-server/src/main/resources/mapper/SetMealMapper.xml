@@ -60,7 +60,7 @@
         order by create_time desc
     </select>
 
-    <select id="list" parameterType="Setmeal" resultType="Setmeal">
+    <select id="list" parameterType="com.sky.entity.Setmeal" resultType="com.sky.entity.Setmeal">
         select * from setmeal
         <where>
             <if test="name != null">
@@ -71,6 +71,17 @@
             </if>
             <if test="status != null">
                 and status = #{status}
+            </if>
+        </where>
+    </select>
+    <select id="countByMap" resultType="java.lang.Integer">
+        select count(id) from setmeal
+        <where>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
             </if>
         </where>
     </select>
